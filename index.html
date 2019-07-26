@@ -62,6 +62,9 @@
         clear: left;
         text-align: left;
       }
+      .err{
+        color: red;
+      }
       button{
         text-align: center;
         font-weight: bold;
@@ -74,7 +77,9 @@
         height: 2.5em;
         margin-top: 0.3em;
       }
-
+      #err_field{
+        text-align: left;
+      }
     </style>
 
     <!-- per generazione qr code -->
@@ -125,11 +130,39 @@
         var modulo = new module(nazione,citta,indirizzo,civico);
         return modulo;
       }
+      function validate(){
+        var citta = document.getElementById("city").value;
+        var indirizzo = document.getElementById("address").value;
+        if(citta==null || citta=="" || citta==" "){
+          return false;
+        }
+        if(indirizzo==null || indirizzo=="" || indirizzo==" "){
+          return false;
+        }
+        return true;
+      }
+      /*Elimina eventuali errori passati*/
+      function clean(){
+        var err_field= document.getElementById("err_field");
+        var figli = err_field.childNodes;
+
+        for(var i=0;i<figli.length; i++){
+          err_field.removeChild(figli[i]);
+        }
+      }
       function generate_qrcode(){
-        /*
-        var title = document.getElementById("title_qrcode");
-        title.firstChild.nodeValue = "QR Code";
-        */
+        clean();
+        if(!validate()){
+          var err_field= document.getElementById("err_field");
+          var err_msg = document.createElement("p");
+          var text = document.createTextNode("Almeno i campi Città ed Indirizzo devono essere inseriti");
+          err_msg.appendChild(text);
+
+          err_msg.setAttribute("class","err");
+          err_field.appendChild(err_msg);
+          return false;
+        }
+
         var country = document.getElementById("country").value;
         var city = document.getElementById("city").value;
         var address = document.getElementById("address").value;
@@ -150,13 +183,15 @@
         var link = document.getElementById("link");
         link.setAttribute("href",stringaLink);
         link.text="link";
+        return true;
       }
       var doc;
 
       function generate_pdf(){
         var qrcode_container = document.getElementById("qrcode");
         if(qrcode_container.firstChild == null){
-          generate_qrcode();
+          if(!generate_qrcode())
+            return;
         }
         
 
@@ -210,6 +245,7 @@
         <button  onclick="generate_qrcode()">QR Code</button>
         <button id="generate" onclick="generate_pdf()">SCARICA PDF</button>
       </div>
+      <div id="err_field"></div>
       
 
     </div>
