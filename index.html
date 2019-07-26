@@ -14,18 +14,28 @@
         text-align: center;
         background-color: white;
       }
+      div{
+        /*
+        border-style: solid;
+        border-width: 0.5px;
+        border-color: black;
+        */
+      }
       #form{
         margin: 2em;
         float: left;
       }
       #qrcode_container{
-
+        /*
         margin-top: 10.5em;
         margin-left: 10em;
-
+        */
+        margin: 0;
         float: left;
-        width: 500px;
-        height: 500px;
+        /*
+        width: 170px;
+        height: 190px;
+        */
         text-align: center;
         background-color: white;
       }
@@ -33,6 +43,38 @@
         background-color: white;
         padding: 2em;
       }
+      #labels{
+        float: left;
+        text-align: center;
+        font-weight: bold;
+        font-size: 15px;
+      }
+      #inputs{
+        float:left;
+      }
+      input{
+        display: block;
+        margin : 0.4em;
+        text-align: left;
+        font-size: 15px;
+      }
+      #button-container{
+        clear: left;
+        text-align: center;
+      }
+      button{
+        text-align: center;
+        font-weight: bold;
+        font-size: 15px;
+        /*
+        width: 15em;
+        height: 3em;
+        margin: 1em;
+        */
+        height: 2.5em;
+        margin-top: 0.3em;
+      }
+
     </style>
 
     <!-- per generazione qr code -->
@@ -84,8 +126,10 @@
         return modulo;
       }
       function generate_qrcode(){
+        /*
         var title = document.getElementById("title_qrcode");
         title.firstChild.nodeValue = "QR Code";
+        */
         var country = document.getElementById("country").value;
         var city = document.getElementById("city").value;
         var address = document.getElementById("address").value;
@@ -94,23 +138,27 @@
         //var componenti_indirizzo = address.split(" ");
 
         address = address.replace(new RegExp(' ','g'),"%20");
-        console.log(address);
+        //console.log(address);
 
         var stringaLink = "https://www.google.com/maps/search/?api=1&query="+civic+"%2C"+address+"%20"+city+"%20"+country;
 
-        console.log(stringaLink);
+        //console.log(stringaLink);
         jQuery(function(){
-        jQuery('#qrcode').qrcode(stringaLink);
+        jQuery('#qrcode').qrcode({width: 164,height: 164,text: stringaLink});
         })
 
         var link = document.getElementById("link");
         link.setAttribute("href",stringaLink);
-        link.text=stringaLink;
+        link.text="click here";
       }
       var doc;
 
       function generate_pdf(){
-        generate_qrcode();
+        var qrcode_container = document.getElementById("qrcode");
+        if(qrcode_container.firstChild == null){
+          generate_qrcode();
+        }
+        
 
         
         doc = new jsPDF();
@@ -133,7 +181,7 @@
          onrendered:function(canvas){
 
          var img=canvas.toDataURL("image/png");
-         doc.addImage(img,'PNG',-20,53);
+         doc.addImage(img,'PNG',0,53);
          doc.save('test.pdf'); // Qui viene salvato il pdf
          }
          });
@@ -143,20 +191,33 @@
 <body>
 <h1>QR code generator</h1>
 <hr>
-  <div>
     <div id="form">
-        <p>Nazione: <input id="country"></p>
-        <p>Citta: <input id="city"></p>
-        <p>Indirizzo: <input id="address"></p>
-        <p>Civico: <input id="civic"></p>
-      <button onclick="generate_pdf()">SCARICA PDF</button>
+      <div id="labels">
+        <p>Nazione: </p>
+        <p>Citta: </p>
+        <p>Indirizzo: </p>
+        <p>Civico: </p>
+      </div>
+
+      <div id="inputs">
+        <input id="country">
+        <input id="city">
+        <input id="address">
+        <input id="civic">
+      </div>
+      <div id="button-container">
+        <button  onclick="generate_qrcode()">QR Code</button>
+        <button id="generate" onclick="generate_pdf()">SCARICA PDF</button>
+      </div>
+      
+
     </div>
+    
+
     <div id="qrcode_container">
-        <h3 id="title_qrcode"> </h3>
         <div id="qrcode"></div>
         <br>
         <a id="link"></a>
     </div>
-  <div>
 </body>
 </html>
