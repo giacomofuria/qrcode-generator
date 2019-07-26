@@ -30,7 +30,7 @@
         margin-top: 10.5em;
         margin-left: 10em;
         */
-        margin: 0;
+        margin-top: 0.5em;
         float: left;
         /*
         width: 170px;
@@ -60,7 +60,7 @@
       }
       #button-container{
         clear: left;
-        text-align: center;
+        text-align: left;
       }
       button{
         text-align: center;
@@ -149,7 +149,7 @@
 
         var link = document.getElementById("link");
         link.setAttribute("href",stringaLink);
-        link.text="click here";
+        link.text="link";
       }
       var doc;
 
@@ -192,6 +192,7 @@
 <h1>QR code generator</h1>
 <hr>
     <div id="form">
+      <p>Compila il form e genera un QR code contenente il link a Google Maps:</p>
       <div id="labels">
         <p>Nazione: </p>
         <p>Citta: </p>
