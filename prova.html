@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>Prova generatore qr code</title>
+	<style type="text/css">
+		body{
+			text-align: center;
+		}
+		#dati{
+			margin: 2em;
+		}
+		input{
+			margin: 0.5em;
+		}
+	</style>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"></script>
+	<script type="text/javascript" src="./jquery.qrcode.min.js">
+	</script>
+</head>
+<body>
+	<div id="dati">
+		<h1>Prova generatore QR code</h1>
+		<span>Country: <input id="country"></span>
+		<span>City: <input id="city"></span>
+		<span>Address: <input id="address"></span>
+		<span>Civic: <input id="civic"></span>
+		<span><button id="b" onclick="generate()">Generate</button></span>
+	</div>
+	<div id="qrcode">
+
+	</div>
+	<br>
+	<a id="link"></a>
+	<script>
+		
+		function generate(){
+			var country = document.getElementById("country").value;
+			var city = document.getElementById("city").value;
+			var address = document.getElementById("address").value;
+			var civic = document.getElementById("civic").value;
+
+			//var componenti_indirizzo = address.split(" ");
+
+			address = address.replace(new RegExp(' ','g'),"%20");
+			console.log(address);
+
+			var stringaLink = "https://www.google.com/maps/search/?api=1&query="+civic+"%2C"+address+"%20"+city+"%20"+country;
+
+			console.log(stringaLink);
+				jQuery(function(){
+				jQuery('#qrcode').qrcode(stringaLink);
+			})
+
+			var link = document.getElementById("link");
+			link.setAttribute("href",stringaLink);
+			link.text=stringaLink;
+		}
+
+	</script>
+
+</body>
+</html>
