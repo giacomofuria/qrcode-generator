@@ -13,7 +13,7 @@ Per la generazione del QR code `jquery-qrcode`([qui](https://github.com/jeromeet
 
 ## Utilizzo
 
-In una cartella qualsiasi eseguire il comando 
+In una cartella qualsiasi eseguire il comando:
 ```
 git clone https://github.com/giacomofuria/qrcode-generator.git
 ```
