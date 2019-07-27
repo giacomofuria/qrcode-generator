@@ -10,3 +10,10 @@ L'esempio mostra inoltre come è possibile esportare i dati inseriti dal form ed
 ## Librerie utilizzate
 
 Per la generazione del QR code `jquery-qrcode`([qui](https://github.com/jeromeetienne/jquery-qrcode)), per la creazione dei file pdf `jsPDF` ([qui](https://github.com/MrRio/jsPDF)) e `html2canvas`([qui](https://html2canvas.hertzen.com)) che permette di estrarre il QR code contenuto in un div della pagina web e farlo diventare un'immagine da poter inserire nel file pdf.
+
+## Utilizzo
+
+In una cartella qualsiasi eseguire il comando 
+```
+git clone https://github.com/giacomofuria/qrcode-generator.git
+```
