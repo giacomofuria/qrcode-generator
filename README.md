@@ -1,4 +1,4 @@
-# QR Code  (for G. Maps)
+# QR Code Generator (for G. Maps)
 
 Questo esempio mostra come generare un QR code contenente un link a Google Maps con i dati inseriti in un form. I dati inseriti dall'utente sono:
 - Nazione
